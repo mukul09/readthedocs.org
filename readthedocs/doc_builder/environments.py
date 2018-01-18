@@ -272,6 +272,12 @@ class DockerBuildCommand(BuildCommand):
 
 class BaseEnvironment(object):
 
+    """
+    Base environment class.
+
+    Used to run arbitrary commands outside a build.
+    """
+
     def __init__(self, project, environment=None):
         # TODO: maybe we can remove this Project dependency also
         self.project = project
@@ -549,7 +555,7 @@ class BuildEnvironment(BaseEnvironment):
 
 class LocalBuildEnvironment(BuildEnvironment):
 
-    """Local execution environment."""
+    """Local execution build environment."""
 
     command_class = BuildCommand
 
