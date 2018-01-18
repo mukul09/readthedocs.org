@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """Documentation Builder Environments."""
 
 from __future__ import absolute_import
@@ -13,7 +15,7 @@ import socket
 from datetime import datetime
 
 from readthedocs.core.utils import slugify
-from django.utils.translation import ugettext_lazy as _, ugettext_noop
+from django.utils.translation import ugettext_lazy as _
 from docker import Client
 from docker.utils import create_host_config
 from docker.errors import APIError as DockerAPIError, DockerException
@@ -39,7 +41,8 @@ log = logging.getLogger(__name__)
 __all__ = (
     'api_v2',
     'BuildCommand', 'DockerBuildCommand',
-    'BuildEnvironment', 'LocalBuildEnvironment', 'DockerBuildEnvironment',
+    'LocalEnvironment',
+    'LocalBuildEnvironment', 'DockerBuildEnvironment',
 )
 
 
