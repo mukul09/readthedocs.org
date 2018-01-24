@@ -429,6 +429,7 @@ class IntegrationsTests(TestCase):
         trigger_build.assert_has_calls(
             [mock.call(force=True, version=mock.ANY, project=self.project)])
 
+        trigger_build_call_count = trigger_build.call_count
         client.post(
             '/api/v2/webhook/bitbucket/{0}/'.format(self.project.slug),
             {
@@ -442,8 +443,7 @@ class IntegrationsTests(TestCase):
             },
             format='json',
         )
-        trigger_build.assert_not_called(
-            [mock.call(force=True, version=mock.ANY, project=self.project)])
+        self.assertEqual(trigger_build_call_count, trigger_build.call_count)
 
     def test_bitbucket_invalid_webhook(self, trigger_build):
         """Bitbucket webhook unhandled event."""
