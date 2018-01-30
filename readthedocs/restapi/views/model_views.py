@@ -3,6 +3,7 @@
 from __future__ import absolute_import
 import logging
 
+from allauth.socialaccount.models import SocialAccount
 from django.shortcuts import get_object_or_404
 from rest_framework import decorators, permissions, viewsets, status
 from rest_framework.decorators import detail_route
@@ -26,7 +27,7 @@ from ..serializers import (BuildSerializer, BuildAdminSerializer,
                            ProjectSerializer, ProjectAdminSerializer,
                            VersionSerializer, VersionAdminSerializer,
                            DomainSerializer, RemoteOrganizationSerializer,
-                           RemoteRepositorySerializer)
+                           RemoteRepositorySerializer, SocialAccountSerializer)
 from .. import utils as api_utils
 
 log = logging.getLogger(__name__)
@@ -274,3 +275,13 @@ class RemoteRepositoryViewSet(viewsets.ReadOnlyModelViewSet):
 
     def get_paginate_by(self):
         return self.request.query_params.get('page_size', 25)
+
+
+class SocialAccountViewSet(viewsets.ReadOnlyModelViewSet):
+    permission_classes = [IsOwner]
+    renderer_classes = (JSONRenderer,)
+    serializer_class = SocialAccountSerializer
+    model = SocialAccount
+
+    def get_queryset(self):
+        return self.model.objects.filter(user=self.request.user.pk)
