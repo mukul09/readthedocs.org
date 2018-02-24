@@ -1,4 +1,4 @@
-:mod:`readthedocs.bookmarks`
+
 ============================
 
 :mod:`readthedocs.bookmarks.admin`
